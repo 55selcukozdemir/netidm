@@ -5,10 +5,15 @@ import { CurrentContext } from "../context/Context";
 
 const drawerWidth = 240;
 
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
-
-const Main = styled("main", {shouldForwardProp: (prop) => prop !== 'open'})
-<{
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
@@ -17,9 +22,8 @@ const Main = styled("main", {shouldForwardProp: (prop) => prop !== 'open'})
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}`,
+  marginLeft: `-${drawerWidth}px`,
   ...(open && {
-    backgroundColor: "red",
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeInOut,
       duration: theme.transitions.duration.leavingScreen,
@@ -28,16 +32,14 @@ const Main = styled("main", {shouldForwardProp: (prop) => prop !== 'open'})
   }),
 }));
 
-const Content: React.FunctionComponent<{children: any}> = ({children}) => {
-
+const Content: React.FunctionComponent<{ children: any }> = ({ children }) => {
   const context = useContext(CurrentContext);
-
-
 
   return (
     <React.Fragment>
-      
-      <Main open={context.sidebar} onClick={()=> context.setSidebar(!context.sidebar)}>
+      <Main
+        open={context.sidebar} >
+        <DrawerHeader />
         {children}
       </Main>
     </React.Fragment>
